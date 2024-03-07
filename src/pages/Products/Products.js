@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Products.css'; // Assuming you have a CSS file for styling
+import './Products.css'; 
 
 const Product = () => {
   const [products, setProducts] = useState([]);
@@ -29,16 +29,19 @@ const Product = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="products-container">
-      {products.map((product) => (
-        <div key={product.id} className="product">
-          <img src={product.image} alt={product.title} style={{ width: '100px', height: '100px' }} />
-          <h2>{product.title}</h2>
-          <p>{product.description}</p>
-          <p>Price: ${product.price}</p>
-          <p>Rating: {product.rating.rate} ({product.rating.count} reviews)</p>
-        </div>
-      ))}
+    <div>
+      <h1 className="products-title">Products</h1>
+      <div className="products-container">
+        {products.map((product) => (
+          <div key={product.id} className="product">
+            <img src={product.image} alt={product.title} style={{ width: '100px', height: '100px' }} />
+            <h2>{product.title}</h2>
+            <p>{product.description}</p>
+            <p>Price: ${product.price}</p>
+            <p>Rating: {product.rating.rate} ({product.rating.count} reviews)</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
