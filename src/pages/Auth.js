@@ -155,7 +155,7 @@ const Auth = ({ setActive, setUser }) => {
                   type="button"
                   className="btn btn-google-sign-in"
                   onClick={handleGoogleSignIn}
-                  style={{ marginLeft: "10px", backgroundColor: "#db4437", color: "white" }}
+                  style={{ marginLeft: "10px", backgroundColor: "#6f0025", color: "white" }}
                 >
                   Sign in with Google
                 </button>
