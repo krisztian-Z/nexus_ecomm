@@ -1,0 +1,42 @@
+@import '/src/styles/Styles.global';
+@import '/src/styles/Responsive.global';
+
+.Container {
+    z-index: 100000;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--background-color);
+    padding: 0.5rem;
+
+
+    @include responsive($med) {
+        height: 3rem;
+    }
+
+}
+
+
+.Left {
+    margin-left: 2.5rem;
+
+    @include responsive($sm) {
+        margin-left: 1rem;
+    }
+}
+
+.Right {
+    margin-right: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+
+    @include responsive($sm) {
+        margin-right: 1rem;
+        gap: 0;
+    }
+
+}

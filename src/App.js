@@ -8,15 +8,17 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home";
 import Products from "./pages/Products/Products.js";
+import NavigationBar from "./components/navigation/NavigationBar";
 import About from "./pages/About/About.js";
 import NotFound from "./pages/NotFound";
 import Header from "./components/Header";
 import Scroll from "./components/Scroll.js";
 import { auth } from "./firebase";
 import { signOut } from "firebase/auth";
+import Footer from "./components/Footer/Footer.jsx";
 
 function App() {
-  const [active, setActive] = useState("auth"); 
+  const [active, setActive] = useState("auth");
   const [user, setUser] = useState(null);
 
   const navigate = useNavigate();
@@ -42,21 +44,34 @@ function App() {
 
   return (
     <div className="App">
-      <Header
+      <NavigationBar
         setActive={setActive}
         active={active}
         user={user}
         handleLogout={handleLogout}
       />
+      {/* <Header
+        setActive={setActive}
+        active={active}
+        user={user}
+        handleLogout={handleLogout}
+      /> */}
       <Scroll />
       <ToastContainer position="top-center" />
       <Routes>
-        <Route path="/" element={<Home  setActive={setActive} active={active} user={user}/>} />
+        <Route
+          path="/"
+          element={<Home setActive={setActive} active={active} user={user} />}
+        />
         <Route path="/about" element={<About />} />
         <Route path="/products" element={<Products />} />
-        <Route path="/auth" element={<Auth setActive={setActive} setUser={setUser} />} />
+        <Route
+          path="/auth"
+          element={<Auth setActive={setActive} setUser={setUser} />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
