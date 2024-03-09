@@ -11,16 +11,18 @@ import Products from "./pages/Products/Products.js";
 import NavigationBar from "./components/navigation/NavigationBar";
 import About from "./pages/About/About.js";
 import NotFound from "./pages/NotFound";
-import Header from "./components/Header";
 import Scroll from "./components/Scroll.js";
 import { auth } from "./firebase";
 import { signOut } from "firebase/auth";
 import Footer from "./components/Footer/Footer.jsx";
+import Laptops from "./components/Laptops/Laptops";
+import Phones from "./components/Phones/Phones";
+import Trending from "./components/Trending/Trending";
+import Dashboard from './components/Dashboard/Dashboard'; 
 
 function App() {
   const [active, setActive] = useState("auth");
   const [user, setUser] = useState(null);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,7 +35,7 @@ function App() {
     });
   }, []);
 
-  //logout logic
+  // Logout logic
   const handleLogout = () => {
     signOut(auth).then(() => {
       setUser(null);
@@ -50,28 +52,26 @@ function App() {
         user={user}
         handleLogout={handleLogout}
       />
-      {/* <Header
-        setActive={setActive}
-        active={active}
-        user={user}
-        handleLogout={handleLogout}
-      /> */}
+
+    <Dashboard active={active} setActive={setActive} />
+      
+      
       <Scroll />
       <ToastContainer position="top-center" />
+
+      
       <Routes>
-        <Route
-          path="/"
-          element={<Home setActive={setActive} active={active} user={user} />}
-        />
+      <Route path="/" element={<Home setActive={setActive} active={active} user={user} />} />
         <Route path="/about" element={<About />} />
         <Route path="/products" element={<Products />} />
-        <Route
-          path="/auth"
-          element={<Auth setActive={setActive} setUser={setUser} />}
-        />
+        <Route path="/auth" element={<Auth setActive={setActive} setUser={setUser} />} />
+        <Route path="/laptops" element={<Laptops />} />
+        <Route path="/phones" element={<Phones />} />
+        <Route path="/trending" element={<Trending />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
+
     </div>
   );
 }
