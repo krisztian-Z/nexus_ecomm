@@ -1,0 +1,117 @@
+.about-container {
+    font-family: 'Arial', sans-serif;
+    max-width: 1500px;
+    margin: 20px auto;
+    padding: 1rem;
+  }  
+  .box {
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: white; 
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .about-section h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  .about-section p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #666;
+  }
+  
+  .mission-section h2 {
+    font-size: 1.75rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  .mission-section p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #666;
+  }
+  
+  .services-section h2 {
+    font-size: 1.75rem;
+    color: #333;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .services-question-button {
+    background-color: #606EE8;
+    color: black;
+    border: none;
+    padding: 20px 40px;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+    display: inline-block; 
+    text-align: center;
+    margin-top: 2rem;
+    
+  }
+  
+  .services-question-button:hover {
+    background-color: #4550af;
+  }
+  
+  .contact-section h2 {
+    font-size: 1.75rem;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+  
+  .contact-info {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 1rem;
+  }
+  
+  .contact-info li {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #666;
+  }
+  
+  .contact-info a {
+    color: #606EE8;
+    text-decoration: none;
+  }
+  
+  .contact-info a:hover {
+    text-decoration: underline;
+  }
+ 
+  .services-answer ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 1rem;
+  }
+  
+  .services-answer li {
+    margin-bottom: 1rem;
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 5px;
+  }
+  
+  .services-answer li strong {
+    color: #333;
+    display: block; 
+    margin-bottom: .5rem;
+  }
+  
+  .services-answer li p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #666;
+  }
+  
