@@ -34,7 +34,7 @@ export const NavMobile = ({ active, setActive, user, handleLogout }) => {
               onClick={() => setActive("home")}
             />
             <NavItem
-              title="Products"
+              title="Laptops"
               variant="Outlined"
               to="/products"
               onClick={() => setActive("products")}
