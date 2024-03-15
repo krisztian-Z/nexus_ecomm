@@ -7,7 +7,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Home from "./pages/Home";
-import Products from "./pages/Products/Products.js";
+import Laptops from "./pages/Products/Laptops.js";
 import NavigationBar from "./components/navigation/NavigationBar";
 import About from "./pages/About/About.js";
 import NotFound from "./pages/NotFound";
@@ -15,10 +15,10 @@ import Scroll from "./components/Scroll.js";
 import { auth } from "./firebase";
 import { signOut } from "firebase/auth";
 import Footer from "./components/Footer/Footer.jsx";
-import Laptops from "./components/Laptops/Laptops";
-import Phones from "./components/Phones/Phones";
 import Trending from "./components/Trending/Trending";
 import Dashboard from './components/Dashboard/Dashboard'; 
+import Macs from './pages/Macs/Macs.js'
+import Other from './pages/Other/OtherLaptops.js'
 
 function App() {
   const [active, setActive] = useState("auth");
@@ -63,11 +63,12 @@ function App() {
       <Routes>
       <Route path="/" element={<Home setActive={setActive} active={active} user={user} />} />
         <Route path="/about" element={<About />} />
-        <Route path="/products" element={<Products />} />
+        <Route path="/products" element={<Laptops />} />
         <Route path="/auth" element={<Auth setActive={setActive} setUser={setUser} />} />
-        <Route path="/laptops" element={<Laptops />} />
-        <Route path="/phones" element={<Phones />} />
         <Route path="/trending" element={<Trending />} />
+        <Route path="/macs" element={<Macs />} />
+        <Route path="/other" element={<Other />} />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
@@ -77,3 +78,4 @@ function App() {
 }
 
 export default App;
+
