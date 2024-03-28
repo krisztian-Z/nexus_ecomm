@@ -7,7 +7,7 @@ const Laptops = () => {
     <div className="laptops-page">
       <h1 className="laptops-title">Choose Your Laptop</h1>
       <div className="laptops-container">
-        <Link to="/macs" className="laptop-section mac" style={{ textDecoration: 'none' }}>
+        <Link to="/laptops" className="laptop-section mac" style={{ textDecoration: 'none' }}>
           <img src='./images/mac.jpg' alt="MacBook" className="laptop-image" />
           <span className="laptop-title">MacBooks</span>
         </Link>

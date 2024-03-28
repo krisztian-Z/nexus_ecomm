@@ -8,8 +8,8 @@ const Dashboard = () => {
       <div className={styles.menuItem}>
         <Link to="/laptops">Laptops</Link>
         <div className={styles.subMenu}>
-          <Link to="/laptops/mac">Mac</Link>
-          <Link to="/laptops/pc">PC</Link>
+          <Link to="/macs">Mac</Link>
+          <Link to="/other">PC</Link>
         </div>
       </div>
       <div className={styles.menuItem}>

@@ -91,3 +91,16 @@ $yellow:#acc1d5;
  flex-direction: row !important;
  cursor: pointer;   
 }
+
+.signupSize {
+	font-size: 25px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.authSignup {
+	height: fit-content;
+	padding: 5px 5px 20px 5px;
+	width: 60%;
+	border: 2px solid rgb(145, 140, 140);
+	border-radius: 8px;
+}

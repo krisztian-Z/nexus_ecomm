@@ -19,6 +19,7 @@ import Trending from "./components/Trending/Trending";
 import Dashboard from './components/Dashboard/Dashboard'; 
 import Macs from './pages/Macs/Macs.js'
 import Other from './pages/Other/OtherLaptops.js'
+import LaptopsPage from "./pages/Laptops/Laptops.js";
 
 function App() {
   const [active, setActive] = useState("auth");
@@ -66,9 +67,11 @@ function App() {
         <Route path="/products" element={<Laptops />} />
         <Route path="/auth" element={<Auth setActive={setActive} setUser={setUser} />} />
         <Route path="/trending" element={<Trending />} />
-        <Route path="/macs" element={<Macs />} />
+       nexus_ecomm-main/src/pages/Macs
         <Route path="/other" element={<Other />} />
-
+        <Route path="/macs" element={<Macs />} />
+      
+        <Route path="/laptops" element={<LaptopsPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

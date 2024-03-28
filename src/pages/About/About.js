@@ -19,7 +19,7 @@ const About = () => {
     <div className="about-container">
       <div className="about-section box">
         <h1>About Us</h1>
-        <p>
+        <p className='about-text'>
         
   Founded amidst Manchester's vibrant tech revolution, Nexus, Inc. stands as a pillar of innovation in consumer electronics. Over the past decade, our dedication to redefining user experience has driven us to create laptops and smartphones that surpass conventional expectations. Our products are a testament to our commitment to technology that integrates seamlessly into daily life, combining groundbreaking features with reliability and style. As Nexus continues to evolve, our passion for challenging the status quo and exploring new possibilities fuels our journey forward.
 

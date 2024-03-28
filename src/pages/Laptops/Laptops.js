@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Macs.css';
+import './Laptops.css';
 import axios from "axios"
 
 const ProductCard = ({ product }) => {
@@ -24,9 +24,8 @@ const ProductCard = ({ product }) => {
     </div>
   );
 };
-console.log(process.env.REACT_APP_API_URL);
 
-const Macs = () => {
+const LaptopsPage = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -38,11 +37,11 @@ const Macs = () => {
       try {
         const response = await axios.get(
           "https://nexusserver-zzlm.onrender.com" +
-            `/api/macs`,
+            `/api/getalllaptop`,
          
         );
      setMacData(response.data)
-     console.log(response.data);
+    
 
       } catch (err) {
         
@@ -90,4 +89,4 @@ const Macs = () => {
   );
 };
 
-export default Macs;
+export default LaptopsPage;

@@ -10,7 +10,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="product">
-      <img src={product.image} alt={product.title} style={{ width: '100px', height: '100px' }} />
+      <img src={product.image} alt={product.title}  />
       <h2>{product.title}</h2>
       <p>
         {showMore ? product.description : `${product.description.substring(0, 100)}...`}
@@ -18,7 +18,7 @@ const ProductCard = ({ product }) => {
           {showMore ? ' Read Less' : ' Read More...'}
         </span>
       </p>
-      <p>Price: ${product.price}</p>
+      <p>Price: &#8364;{product.price}</p>
       <p>Rating: {product.rating.rate} ({product.rating.count} reviews)</p>
     </div>
   );

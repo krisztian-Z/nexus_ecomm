@@ -3,6 +3,8 @@
     max-width: 1500px;
     margin: 20px auto;
     padding: 1rem;
+   
+   
   }  
   .box {
     margin-bottom: 2rem;
@@ -14,14 +16,20 @@
 
   .about-section h1 {
     font-size: 2rem;
+    
     color: #333;
+  
+   
     margin-bottom: 1rem;
   }
+
+  
   
   .about-section p {
     font-size: 1rem;
     line-height: 1.6;
     color: #666;
+  
   }
   
   .mission-section h2 {

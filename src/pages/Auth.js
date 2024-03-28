@@ -87,10 +87,10 @@ const Auth = ({ setActive, setUser }) => {
 
   return (
     <div className="container-fluid mb-4">
-      <div className="container">
+      <div className="container authSignup">
         <div className="col-12 text-center">
-          <div className="text-center heading py-2">
-            {!signUp ? "Sign-In" : "Sign-Up"}
+          <div className="text-center heading py-2 signupSize">
+          {!signUp ? "Sign-In" : "Sign-Up"}
           </div>
         </div>
         <div className="row h-100 justify-content-center align-items-center">
