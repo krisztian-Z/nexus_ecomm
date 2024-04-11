@@ -1,0 +1,138 @@
+.homepage {
+    font-family: 'San Francisco', Arial, sans-serif;
+  }
+  
+  .hero-container {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #1c1c1c 50%, #333333 50%); 
+  }
+
+  
+  
+  .laptop-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 60%; 
+    max-height: 60%; 
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: #fff;
+  }
+  
+  .hero-content h1 {
+    font-size: 3rem; 
+    margin-bottom: 2rem;
+  }
+  
+  .hero-content p {
+    font-size: 1.5rem; 
+    margin-bottom: 3rem; 
+  }
+  
+  .hero-content button {
+    background-color: #f0f0f0;
+    border: 1px solid #dfdfdf;
+    border-radius: 16px;
+    color: #000;
+    cursor: pointer;
+    font-family: 'San Francisco', Arial, sans-serif;
+    font-size: 20px; 
+    padding: 16px 24px; 
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  }
+  
+  .hero-content button:hover,
+  .hero-content button:focus {
+    background-color: #fff;
+    border-color: rgba(0, 0, 0, 0.19);
+  }
+  
+  .best-deals {
+    padding: 5rem 2rem; 
+  }
+  
+  .best-deals h2 {
+    font-size: 3rem; 
+    margin-bottom: 4rem; 
+    color: #333; 
+    text-align: center; 
+  }
+  
+  .deals-container {
+    display: flex; 
+    justify-content: center; 
+    gap: 2rem; 
+  }
+
+  .deal-card {
+    background-color: #f9f9f9; 
+    padding: 2rem; 
+    border-radius: 10px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    max-width: 400px; 
+    width: 100%; 
+  }
+  
+  .deal-card h3 {
+    font-size: 2rem; 
+    margin-bottom: 1rem; 
+  }
+  
+  .deal-card p {
+    font-size: 1.4rem;
+    margin-bottom: 2rem; 
+  }
+  
+  .deal-card button {
+    align-items: center;
+    background-color: rgba(240, 240, 240, 0.26);
+    border: 1px solid #DFDFDF;
+    border-radius: 16px;
+    box-sizing: border-box;
+    color: #000;
+    cursor: pointer;
+    display: flex;
+    font-family: 'San Francisco', Arial, sans-serif;
+    font-size: 18px;
+    justify-content: center;
+    line-height: 28px;
+    max-width: 100%;
+    padding: 14px 22px;
+    text-decoration: none;
+    transition: all .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 100%;
+  }
+
+  
+  
+  .deal-card button:active,
+  .deal-card button:hover {
+    outline: 0;
+  }
+  
+  .deal-card button:hover {
+    background-color: #fff;
+    border-color: rgba(0, 0, 0, 0.19);
+  }
+  
+  @media (min-width: 768px) {
+    .deal-card button {
+      font-size: 20px;
+      padding: 14px 16px;
+    }
+  }
