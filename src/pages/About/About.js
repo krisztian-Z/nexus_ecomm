@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './About.css'; 
- 
+
 const About = () => {
   
   const [showServices, setShowServices] = useState(false);
@@ -16,24 +16,35 @@ const About = () => {
   
 
   return (
-    <div className="about-container">
-      <div className="about-section box">
-        <h1>About Us</h1>
-        <p className='about-text'>
-        
-  Founded amidst Manchester's vibrant tech revolution, Nexus, Inc. stands as a pillar of innovation in consumer electronics. Over the past decade, our dedication to redefining user experience has driven us to create laptops and smartphones that surpass conventional expectations. Our products are a testament to our commitment to technology that integrates seamlessly into daily life, combining groundbreaking features with reliability and style. As Nexus continues to evolve, our passion for challenging the status quo and exploring new possibilities fuels our journey forward.
+    
+      
+        <div className="about-container">
+          <div className="flex-row">
+            <div className="about-section box">
+            <h1>About Us</h1>
+            
+<p>
+  Founded amidst Manchester's vibrant tech revolution, Nexus, Inc. stands as a pillar of innovation in consumer electronics. Since our inception over a decade ago, we have been committed to redefining the user experience. Our journey began with a passion for blending cutting-edge technology with daily life, which has led to the creation of laptops and smartphones that not only meet but exceed conventional expectations. Today, Nexus products are celebrated for their groundbreaking features, reliability, and stylish design. As we continue to grow and evolve, our passion for innovation remains at the heart of our company, driving us to explore new possibilities and redefine what's possible in consumer technology.
+</p>
+<img src="/images/office2.jpg" alt="Second Office" className="office-image" style={{ marginTop: '1rem' }} />
+          <p></p>
+            </div>
+            <div className="mission-section box">
+            <h2>Our Mission</h2><p>
+              <p>
+                   
+              </p>
 
+              
+            </p>
+<img src="/images/office.jpg" alt="Office" className="office-image" />
 
-        </p>
-      </div>
-
-      <div className="mission-section box">
-      <h2>Our Mission</h2>
-        <p>
-  Nexus, Inc.'s mission transcends the creation of exceptional electronics; it's about empowering people and communities through innovative technology. We believe in harnessing the power of tech to address societal challenges, enhance lifestyles, and promote environmental sustainability. Our approach to design and manufacturing emphasizes energy efficiency and aims to minimize our ecological footprint. By advancing the forefront of technology, we are committed to products that not only fulfill the needs of our users but also foster a more sustainable and inclusive future. In every endeavor, our goal is to inspire and lead by example, advocating for a world where technology and sustainability go hand in hand.
+<p>
+  Nexus, Inc.'s mission transcends the creation of exceptional electronics; our core objective is to empower individuals and communities through innovative technology. We believe in the potential of technology to solve pressing societal challenges, enhance everyday life, and promote environmental sustainability. Our approach to design and manufacturing is deeply rooted in energy efficiency and reducing our ecological footprint. We are committed to pushing the boundaries of technology, ensuring our products not only meet the needs of our customers but also contribute to a more sustainable and equitable world. Through our efforts, we aim to inspire and lead by example, advocating for a future where technology and sustainability are intertwined.
 </p>
 
-      </div>
+            </div>
+          </div>
 
       <div className="services-section box">
         <h2>What services do we offer?</h2>
