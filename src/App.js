@@ -6,7 +6,7 @@ import "./media-query.css";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Home from "./pages/Home";
+import Home from "./pages/Home.js";  
 import Laptops from "./pages/Products/Laptops.js";
 import NavigationBar from "./components/navigation/NavigationBar";
 import About from "./pages/About/About.js";
@@ -15,11 +15,14 @@ import Scroll from "./components/Scroll.js";
 import { auth } from "./firebase";
 import { signOut } from "firebase/auth";
 import Footer from "./components/Footer/Footer.jsx";
-import Trending from "./components/Trending/Trending";
-import Dashboard from './components/Dashboard/Dashboard'; 
-import Macs from './pages/Macs/Macs.js'
-import Other from './pages/Other/OtherLaptops.js'
+//import Trending from "./components/Trending/Trending";
+//import Dashboard from './components/Dashboard/Dashboard'; 
+import Macs from './pages/Macs/Macs.js';
+import Other from './pages/Other/OtherLaptops.js';
 import LaptopsPage from "./pages/Laptops/Laptops.js";
+
+
+
 
 function App() {
   const [active, setActive] = useState("auth");
@@ -54,20 +57,15 @@ function App() {
         handleLogout={handleLogout}
       />
 
-    <Dashboard active={active} setActive={setActive} />
-      
-      
       <Scroll />
       <ToastContainer position="top-center" />
 
-      
       <Routes>
-      <Route path="/" element={<Home setActive={setActive} active={active} user={user} />} />
+        <Route path="/" element={<Home setActive={setActive} active={active} user={user} />} />  
         <Route path="/about" element={<About />} />
         <Route path="/products" element={<Laptops />} />
         <Route path="/auth" element={<Auth setActive={setActive} setUser={setUser} />} />
-        <Route path="/trending" element={<Trending />} />
-       nexus_ecomm-main/src/pages/Macs
+        
         <Route path="/other" element={<Other />} />
         <Route path="/macs" element={<Macs />} />
       
@@ -75,10 +73,8 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
-
     </div>
   );
 }
 
 export default App;
-
