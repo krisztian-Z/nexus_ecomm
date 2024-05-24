@@ -1,0 +1,50 @@
+@import '/src/styles/Responsive.global';
+
+.NavItem {
+    border: none;
+    border-radius: 1.5rem;
+    width: auto;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-weight: 700;
+    font-size: 2rem;
+    text-decoration: none;
+    min-width: 16.5rem;
+    text-align: center;
+    // padding: 1.5rem;
+    cursor: pointer;
+
+
+    @include responsive($xl) {
+        font-size: 1.2rem;
+    }
+
+    @include responsive($lg) {
+        font-size: 1rem;
+    }
+
+
+
+}
+
+
+.Filled {
+    background-color: var(--title-accent-color);
+
+    &:hover {
+        background-color: var(--title-accent-color-dark);
+
+    }
+
+}
+
+.Outlined {
+    background-color: transparent;
+
+    &:hover {
+        border: 0.25rem solid var(--title-color);
+    }
+}

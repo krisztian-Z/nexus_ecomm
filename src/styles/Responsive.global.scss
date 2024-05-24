@@ -1,0 +1,11 @@
+$xl: 2450px; // 2K Monitor
+$lg: 1440px; // L Laptop 
+$med: 1024px; // Laptop
+$sm: 768px; //Tablet
+$xs: 375px; //Mobile
+
+@mixin responsive($query) {
+    @media (max-width: $query) {
+        @content;
+    }
+}

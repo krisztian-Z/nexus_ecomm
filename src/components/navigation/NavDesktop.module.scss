@@ -1,0 +1,11 @@
+@import '/src/styles/Responsive.global';
+
+.Container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    @include responsive($med) {
+        display: none;
+    }
+}

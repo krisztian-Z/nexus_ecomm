@@ -1,0 +1,78 @@
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.updateicons {
+  width : 100%;
+  height: 50px;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.updateButton {
+  width: 45%;
+  height: 100%;
+  background-color:  rgb(68, 68, 196);
+  border-radius: 5px;
+  display: flex;
+  text-transform: capitalize;
+  color: white;
+  justify-content: center;
+  font-size: 18x;
+  font-weight: bold;
+  align-items: center;
+}
+
+body {
+  
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f4f4f4; /* Light grey background */
+  color: #333; /* Dark grey text for readability */
+}
+
+/* Header, Main and Footer styles */
+header, main, footer {
+  padding: 1rem;
+  flex-shrink: 0; /* Prevents these elements from shrinking */
+}
+
+/* Flex properties for footer to ensure it stays at the bottom */
+footer {
+  margin-top: auto;
+  background-color: #282c34; /* Dark background for footer */
+  color: white; /* White text color for contrast */
+  text-align: center;
+}
+
+
+
+
+/* Styling for code elements, enhancing readability */
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  background-color: #eee; /* Light background for code blocks */
+  padding: 2px 4px; /* Padding to make text inside code blocks stand out */
+  border-radius: 4px; /* Rounded corners for aesthetic purposes */
+}
+
+/* entire content is flex and can expand */
+.content-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+

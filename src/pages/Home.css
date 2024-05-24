@@ -1,0 +1,89 @@
+.homepage {
+  font-family: 'San Francisco', Arial, sans-serif;
+}
+
+.hero-container {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #1c1c1c 50%, #333333 50%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #fff;
+}
+
+.hero-content h1, .hero-content p {
+  margin: 1rem;
+}
+
+.hero-content button {
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 20px;
+  color: #000;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+.laptop-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 60%;
+}
+
+.best-deals {
+  padding: 2rem;
+  text-align: center;
+}
+
+.deal-card {
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 80%; 
+  margin: 0 auto; 
+}
+
+.ratings {
+  margin-top: 5px; 
+  text-align: center; 
+}
+
+
+.deal-card .ratings {
+  margin-top: 5px; 
+}
+
+
+.deal-card p {
+  margin-top: 5px; 
+}
+
+.deal-card img {
+  max-width: 100%;
+  height: auto;
+}
+
+.ratings {
+  margin-top: 0.8rem;
+}
+
+.slider {
+  width: 40%; 
+  margin: 0 auto; 
+}
+
+@media (min-width: 768px) {
+  .hero-content h1 {
+    font-size: 4rem;
+  }
+}

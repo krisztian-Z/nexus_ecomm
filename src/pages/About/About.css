@@ -1,0 +1,180 @@
+.about-section h1, .mission-section h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-top: 0; 
+  margin-bottom: 2rem;
+}
+.mission-section {
+  margin-bottom: 2rem; 
+}
+
+
+
+@import '/src/pages/Home.css';
+
+.about-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.box {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin: 1rem;
+  flex-basis: calc(50% - 2rem);
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .flex-row {
+    flex-direction: column;
+  }
+
+  .box {
+    flex-basis: 100%;
+  }
+}
+
+.about-section, .mission-section {
+  position: relative;
+  z-index: 1;
+  color: #333;
+    
+}
+
+
+.office-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+button {
+  background-color: #f0f0f0;
+  border: 1px solid #dfdfdf;
+  border-radius: 16px;
+  color: #000;
+  cursor: pointer;
+  font-family: 'San Francisco', Arial, sans-serif;
+  font-size: 20px;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+button:hover,
+button:focus {
+  background-color: #fff;
+  border-color: rgba(0, 0, 0, 0.19);
+}
+
+.contact-section {
+  background-color: #fff;
+  padding: 2rem;
+  margin: 1rem auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  text-align: center;
+}
+
+.contact-info {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.contact-info li {
+  margin-bottom: 0.5rem;
+}
+
+.contact-info a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.contact-info a:hover,
+.contact-info a:focus {
+  text-decoration: underline;
+}
+
+.services-section {
+  background-color: #fff;
+  padding: 2rem;
+  margin: 1rem auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  text-align: center;
+}
+
+.services-question-button {
+  background-color: #f0f0f0;
+  border: 1px solid #dfdfdf;
+  border-radius: 16px;
+  color: #000;
+  cursor: pointer;
+  font-family: 'San Francisco', Arial, sans-serif;
+  font-size: 18px;
+  padding: 10px 20px;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.services-question-button:hover,
+.services-question-button:focus {
+  background-color: #fff;
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.services-answer ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.services-answer li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.services-answer li:last-child {
+  border-bottom: none;
+}
+
+.services-answer strong {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.services-answer p {
+  margin-top: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+p {
+  text-align: justify;
+  text-justify: inter-word; 
+}
+
+
+.about-section p, .mission-section p, .contact-section p, .services-answer p {
+  text-align: justify;
+  text-justify: inter-word;
+}
