@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
-import "./OtherLaptops.css";
-import { db } from "../../firebase";
-import { writeBatch, doc } from "firebase/firestore";
+import React, { useEffect, useState, useContext } from 'react';
+import './OtherLaptops.css';
+import { db } from '../../firebase'; 
+import { writeBatch, doc, updateDoc, FieldValue } from "firebase/firestore";
+import { CartContext } from '../Cart/CartContext'; // Import CartContext
 
-const ProductCard = ({ product , user }) => {
-  const ratingValue = parseFloat(product.ratings.split("/")[0]);
+const ProductCard = ({ product, addToCart, handlePurchase }) => { // Pass handlePurchase as a prop
+  const ratingValue = parseFloat(product.ratings.split('/')[0]);
   const totalReviews = product.ratings.match(/\((\d+)\sreviews\)/)[1];
 
-  const starPercentage = (ratingValue / 5) * 100; // Convert rating to percentage
-  const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`; // Round to nearest 10%
+  const starPercentage = (ratingValue / 5) * 100;
+  const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
 
   return (
     <div className="product-card">
@@ -22,64 +23,52 @@ const ProductCard = ({ product , user }) => {
         <p className="stock">Stock: {product.stock}</p>
         <div className="rating">
           <div className="star-ratings-css">
-            <div
-              className="star-ratings-css-top"
-              style={{ width: starPercentageRounded }}
-            >
+            <div className="star-ratings-css-top" style={{width: starPercentageRounded}}>
               <span>★★★★★</span>
             </div>
             <div className="star-ratings-css-bottom">
               <span>★★★★★</span>
             </div>
           </div>
-          <span className="total">({totalReviews} reviews)</span>
+          <span className='total'>({totalReviews} reviews)</span>
         </div>
-        {
-      user.email.includes("admin.com") ? <> <div className="updateicons">
-        
-          <button className="updateButton">update</button>
-          <button
-            style={{ backgroundColor: "rgb(211, 48, 48) " }}
-            className="updateButton"
-          >
-            delete
-          </button>
+        <div className='updateicons'>
+          <button className='updateButton'>update</button>
+          <button style={{backgroundColor : "rgb(211, 48, 48) "}} className='updateButton'>delete</button>
         </div>
-        </>  : <button className="add-to-cart">Add to Cart</button>   }
-          
+        <button className="add-to-cart" onClick={() => { addToCart(product); handlePurchase(product); }}>Add to Cart</button> {/* Call handlePurchase function */}
       </div>
     </div>
   );
 };
 
-const OtherLaptops = ({user}) => {
+const OtherLaptops = () => {
+  const { addToCart } = useContext(CartContext); // Access addToCart from CartContext
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const [searchTerm, setSearchTerm] = useState(""); // Initialize searchTerm here
+  const [error, setError] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const response = await fetch(
-          "https://nexus2024.onrender.com/api/windows"
-        );
+        const response = await fetch('https://nexus2024.onrender.com/api/windows');
         if (!response.ok) {
-          throw new Error("Failed to fetch");
+          throw new Error('Failed to fetch');
         }
         const data = await response.json();
         setProducts(data);
         setFilteredProducts(data);
 
-        // Save to Firestore using batch
         const batch = writeBatch(db);
-        data.forEach((product) => {
-          const docRef = doc(db, "windows", product._id);
+        data.forEach(product => {
+          const docRef = doc(db, 'windows', product._id); 
           batch.set(docRef, product);
         });
         await batch.commit();
+
       } catch (error) {
         setError(error.message);
       } finally {
@@ -89,6 +78,17 @@ const OtherLaptops = ({user}) => {
 
     fetchProducts();
   }, []);
+
+  const handlePurchase = async (product) => {
+    try {
+      const productRef = doc(db, 'windows', product._id);
+      await updateDoc(productRef, {
+        stock: FieldValue.increment(-1) // Decrease stock by 1 when purchased
+      });
+    } catch (error) {
+      console.error("Error updating product stock:", error);
+    }
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -106,7 +106,7 @@ const OtherLaptops = ({user}) => {
             if (value.trim() === "") {
               setFilteredProducts(products);
             } else {
-              const filtered = products.filter((product) =>
+              const filtered = products.filter(product =>
                 product.title.toLowerCase().includes(value.toLowerCase())
               );
               setFilteredProducts(filtered);
@@ -116,9 +116,10 @@ const OtherLaptops = ({user}) => {
           className="search-input"
         />
       </div>
+      
       <div className="products-container">
         {filteredProducts.map((product) => (
-          <ProductCard key={product._id} product={product}  user = {user} />
+          <ProductCard key={product._id} product={product} addToCart={addToCart} handlePurchase={handlePurchase} />
         ))}
       </div>
     </div>

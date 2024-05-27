@@ -1,25 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./Home.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useNavigate } from "react-router-dom";
+import { CartContext } from "./Cart/CartContext"; 
+import axios from 'axios';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
-    fetch("https://nexus2024.onrender.com/api/all")
-      .then((response) => response.json())
-      .then((data) => {
-        const highRatedProducts = data
-          .filter((product) => parseFloat(product.ratings.split("/")[0]) >= 4.9)
-          .slice(0, 5); 
-        setProducts(highRatedProducts);
-      })
-      .catch((error) => console.error("Error fetching products:", error));
+    fetchProducts();
   }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get("https://nexus2024.onrender.com/api/all");
+      const data = response.data;
+      const highRatedProducts = data
+        .filter((product) => parseFloat(product.ratings.split("/")[0]) >= 4.9)
+        .slice(0, 5); // Display up to 5 products
+      setProducts(highRatedProducts);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  const handlePurchase = async (product) => {
+    const quantity = 1; // Example: purchase 1 item
+    try {
+      const response = await axios.post(`https://nexus2024.onrender.com/api/update-stock/${product._id}`, { quantity });
+      const updatedProduct = response.data;
+
+      setProducts((prevProducts) =>
+        prevProducts.map((p) => (p._id === updatedProduct._id ? updatedProduct : p))
+      );
+    } catch (error) {
+      console.error("Error updating product stock:", error);
+    }
+  };
 
   const settings = {
     dots: true,
@@ -54,9 +76,8 @@ const Home = () => {
               <img src={product.image} alt={product.title} />
               <h3>{product.title}</h3>
               <p className="ratings">Rating: {product.ratings}</p>
-              <button onClick={() => navigate(`/products/${product._id}`)}>
-                Add to Cart
-              </button>
+              <p className="stock">Stock: {product.stock}</p>
+              <button onClick={() => addToCart(product)}>Add to Cart</button>
             </div>
           ))}
         </Slider>
@@ -66,3 +87,9 @@ const Home = () => {
 };
 
 export default Home;
+
+
+
+
+
+
