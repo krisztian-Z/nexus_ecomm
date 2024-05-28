@@ -1,4 +1,4 @@
-// App.jsx
+// src/App.jsx
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -26,6 +26,7 @@ import Other from './pages/Other/OtherLaptops';
 import Cart from "./pages/Cart/Cart"; 
 import { CartProvider } from "./pages/Cart/CartContext"; 
 import CreateProductPage from "./pages/CreateProductPage";
+import { AuthProvider } from "./AuthContext"; // Import AuthProvider
 
 library.add(fab, faShoppingCart);
 
@@ -53,30 +54,32 @@ function App() {
   };
 
   return (
-    <CartProvider>
-      <div className="App">
-        <NavigationBar
-          setActive={setActive}
-          active={active}
-          user={user}
-          handleLogout={handleLogout}
-        />
-        <Scroll />
-        <ToastContainer position="top-center" />
-        <Routes>
-          <Route path="/" element={<Home setActive={setActive} active={active} user={user} />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/products" element={<Laptops />} />
-          <Route path="/auth" element={<Auth setActive={setActive} setUser={setUser} />} />
-          <Route path="/other" element={<Other />} />
-          <Route path="/macs" element={<Macs />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/create-product" element={<CreateProductPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-        <Footer />
-      </div>
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <div className="App">
+          <NavigationBar
+            setActive={setActive}
+            active={active}
+            user={user}
+            handleLogout={handleLogout}
+          />
+          <Scroll />
+          <ToastContainer position="top-center" />
+          <Routes>
+            <Route path="/" element={<Home setActive={setActive} active={active} user={user} />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/products" element={<Laptops />} />
+            <Route path="/auth" element={<Auth setActive={setActive} setUser={setUser} />} />
+            <Route path="/other" element={<Other />} />
+            <Route path="/macs" element={<Macs />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/create-product" element={<CreateProductPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <Footer />
+        </div>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 

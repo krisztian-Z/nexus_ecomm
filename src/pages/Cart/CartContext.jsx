@@ -1,4 +1,3 @@
-// CartContext.jsx
 import React, { createContext, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -12,17 +11,16 @@ export const CartProvider = ({ children }) => {
       setCartItems((prevItems) => {
         const existingItem = prevItems.find((item) => item._id === product._id);
         if (existingItem && existingItem.quantity < product.stock) {
-          // If the item already exists in the cart and stock is available, update its quantity
+          toast.success('Item added to cart');
           return prevItems.map((item) =>
             item._id === product._id
               ? { ...item, quantity: item.quantity + 1 }
               : item
           );
         } else if (!existingItem) {
-          // If the item doesn't exist in the cart, add it with quantity 1
+          toast.success('Item added to cart');
           return [...prevItems, { ...product, quantity: 1 }];
         } else {
-          // Otherwise, show "Out of Stock" message
           toast.error('Out of Stock');
           return prevItems;
         }
@@ -33,18 +31,35 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = (productId) => {
-    setCartItems((prevItems) => {
-      const newItems = prevItems.filter(item => item._id !== productId);
-      return newItems;
-    });
+    setCartItems((prevItems) => prevItems.filter((item) => item._id !== productId));
   };
 
   const clearCart = () => {
     setCartItems([]);
   };
 
+  const increaseQuantity = (productId) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item._id === productId && item.quantity < item.stock
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      )
+    );
+  };
+
+  const decreaseQuantity = (productId) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item._id === productId && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+    );
+  };
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart, increaseQuantity, decreaseQuantity }}>
       {children}
     </CartContext.Provider>
   );

@@ -1,110 +1,151 @@
 .product-card {
-    display: flex;
-    width: 48%;
-    min-width: 300px;
-    max-width: 600px;
-    border: 2px solid lightgray;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    margin-bottom: 40px; 
-  }
-  
-  .product-card:hover {
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    transform: scale(1.03);
-  }
-  
-  .product-image {
-    flex: 0 0 40%; 
-    background: #fff; 
-    display: flex;
-    align-items: center; 
-    justify-content: center; 
-    overflow: hidden; 
-    position: relative; 
-  }
-  
-  .product-image img {
-    width: 100%; 
-    height: auto; 
-    min-height: 100%; 
-    object-fit: contain; 
-    position: absolute; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-  }
-  
-  .product-info {
-    padding: 20px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .rating {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  
-  .title-and-search {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  
-  .products-title {
-    margin: 0;
-    flex-grow: 1;
-    margin-left: 400px; 
-  }
-  
-  .search-input {
-    padding: 10px 15px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    background: white;
-    width: 300px;
-    margin-right: 150px; 
-  }
-  
-  .search-input:focus {
-    outline: none;
-    border-color: #666;
-  }
-  
-  .purchase-btn {
-    background-color: #ff9900;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  .purchase-btn:hover {
-    background-color: #ff8000; /* Darker shade on hover */
-  }
-  
-  .purchase-btn:focus {
-    background-color: #ff9900; /* Revert to original color when focused */
-    outline: none; /* Remove default focus outline */
-  }
-  
-  .purchase-btn:active {
-    background-color: #ff9900; /* Revert to original color when clicked */
-  }
+  display: flex;
+  width: 48%;
+  min-width: 300px;
+  max-width: 600px;
+  border: 2px solid lightgray;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  margin-bottom: 40px; 
+}
 
- 
-  
+.product-card:hover {
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  transform: scale(1.03);
+}
 
-  
-  
-  
+.product-image {
+  flex: 0 0 40%; 
+  background: #fff; 
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  overflow: hidden; 
+  position: relative; 
+}
+
+.product-image img {
+  width: 100%; 
+  height: auto; 
+  min-height: 100%; 
+  object-fit: contain; 
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+}
+
+.product-info {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.title-and-search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.products-title {
+  margin: 0;
+  flex-grow: 1;
+  margin-left: 400px; 
+}
+
+.search-input {
+  padding: 10px 15px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background: white;
+  width: 300px;
+  margin-right: 150px; 
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #666;
+}
+
+.purchase-btn {
+  background-color: #ff9900;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.purchase-btn:hover {
+  background-color: #ff8000; /* Darker shade on hover */
+}
+
+.purchase-btn:focus {
+  background-color: #ff9900; /* Revert to original color when focused */
+  outline: none; /* Remove default focus outline */
+}
+
+.purchase-btn:active {
+  background-color: #ff9900; /* Revert to original color when clicked */
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.quantity-control button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.quantity-control button:hover {
+  background-color: #0056b3;
+}
+
+.quantity-control button:focus {
+  outline: none;
+}
+
+.quantity-display {
+  font-size: 16px;
+}
+
+.remove-btn {
+  background-color: rgb(211, 48, 48); /* Dark Red */
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.remove-btn:hover {
+  background-color: #a00000; /* Slightly lighter red on hover */
+}
+
+.remove-btn:focus {
+  outline: none;
+}
