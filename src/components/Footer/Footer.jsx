@@ -14,6 +14,7 @@ import {
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
 
+
 export default function Footer() {
   return (
     <MDBFooter className="bg-light text-center text-lg-start text-white">
