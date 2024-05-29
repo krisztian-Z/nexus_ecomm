@@ -9,23 +9,22 @@ const CreateProductPage = () => {
   const [productPrice, setProductPrice] = useState('');
   const [productDescription, setProductDescription] = useState('');
   const [productStock, setProductStock] = useState('');
-  const [productImage, setProductImage] = useState(null);
+  const [productImageUrl, setProductImageUrl] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('title', productName);
-    formData.append('price', productPrice);
-    formData.append('description', productDescription);
-    formData.append('stock', productStock);
-    if (productImage) {
-      formData.append('image', productImage);
-    }
+    const productData = {
+      title: productName,
+      price: productPrice,
+      description: productDescription,
+      stock: productStock,
+      image: productImageUrl
+    };
 
     try {
-      const response = await axios.post('https://nexus2024.onrender.com/api/add', formData, {
+      const response = await axios.post('https://nexus2024.onrender.com/api/add', productData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': 'application/json'
         }
       });
       toast.success('Product created successfully!');
@@ -33,11 +32,21 @@ const CreateProductPage = () => {
       setProductPrice('');
       setProductDescription('');
       setProductStock('');
-      setProductImage(null);
+      setProductImageUrl('');
       console.log('Product created:', response.data);
     } catch (error) {
       toast.error('There was an error creating the product!');
       console.error('There was an error creating the product!', error);
+      if (error.response) {
+        console.error('Error response data:', error.response.data);
+        console.error('Error status:', error.response.status);
+        console.error('Error headers:', error.response.headers);
+      } else if (error.request) {
+        console.error('Error request:', error.request);
+      } else {
+        console.error('Error message:', error.message);
+      }
+      console.error('Error config:', error.config);
     }
   };
 
@@ -81,10 +90,12 @@ const CreateProductPage = () => {
           />
         </div>
         <div>
-          <label>Product Image:</label>
+          <label>Product Image URL:</label>
           <input
-            type="file"
-            onChange={(e) => setProductImage(e.target.files[0])}
+            type="text"
+            value={productImageUrl}
+            onChange={(e) => setProductImageUrl(e.target.value)}
+            required
           />
         </div>
         <button type="submit">Create Product</button>
@@ -94,6 +105,8 @@ const CreateProductPage = () => {
 };
 
 export default CreateProductPage;
+
+
 
 
 

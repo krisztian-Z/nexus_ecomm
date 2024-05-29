@@ -119,8 +119,18 @@ const Macs = () => {
       </div>
       <div className="products-container">
         {filteredProducts.map((product) => {
-          const ratingValue = parseFloat(product.ratings.split('/')[0]);
-          const totalReviews = product.ratings.match(/\((\d+)\sreviews\)/)[1];
+          let ratingValue = 0;
+          let totalReviews = 0;
+          if (product.ratings) {
+            const ratingsArray = product.ratings.split('/');
+            if (ratingsArray.length > 0) {
+              ratingValue = parseFloat(ratingsArray[0]);
+              const reviewsMatch = product.ratings.match(/\((\d+)\sreviews\)/);
+              if (reviewsMatch) {
+                totalReviews = reviewsMatch[1];
+              }
+            }
+          }
           const starPercentage = (ratingValue / 5) * 100;
           const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
           return (
@@ -161,6 +171,8 @@ const Macs = () => {
 };
 
 export default Macs;
+
+
 
 
 
