@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useContext } from 'react';
 import { CartContext } from '../Cart/CartContext'; // Import the CartContext
 import '../Other/OtherLaptops.css';
@@ -160,7 +161,9 @@ const Macs = () => {
                     <button style={{backgroundColor: "rgb(211, 48, 48)"}} className='updateButton'>Delete</button>
                   </div>
                 )}
-                <button className="add-to-cart" onClick={() => handleAddToCart(product)}>Add to Cart</button>
+                {!isAdmin && (
+                  <button className="add-to-cart" onClick={() => handleAddToCart(product)}>Add to Cart</button>
+                )}
               </div>
             </div>
           );
@@ -177,16 +180,12 @@ export default Macs;
 
 
 
-
-
-
-
-
 // import React, { useState, useEffect, useContext } from 'react';
 // import { CartContext } from '../Cart/CartContext'; // Import the CartContext
 // import '../Other/OtherLaptops.css';
 // import { db, auth } from '../../firebase'; 
-// import { writeBatch, doc, updateDoc, FieldValue } from "firebase/firestore"; // Import FieldValue for updating stock
+// import { writeBatch, doc, updateDoc, increment } from "firebase/firestore"; // Import FieldValue for updating stock
+// import { toast } from 'react-toastify'; // Importing toast from react-toastify
 
 // const Macs = () => {
 //   const { addToCart } = useContext(CartContext); // Access the addToCart function from CartContext
@@ -245,10 +244,32 @@ export default Macs;
 //     try {
 //       const productRef = doc(db, 'macs', product._id);
 //       await updateDoc(productRef, {
-//         stock: FieldValue.increment(-1) // Decrease stock by 1 when purchased
+//         stock: increment(-1) // Decrease stock by 1 when purchased
 //       });
+//       // Update the state to reflect the stock change immediately
+//       setProducts((prevProducts) => 
+//         prevProducts.map((p) => 
+//           p._id === product._id ? { ...p, stock: p.stock - 1 } : p
+//         )
+//       );
+//       //toast.success("Product added to cart successfully!");
 //     } catch (error) {
 //       console.error("Error updating product stock:", error);
+//       toast.error("Failed to update product stock.");
+//     }
+//   };
+
+//   const handleAddToCart = (product) => {
+//     const user = auth.currentUser;
+//     if (user) {
+//       if (product.stock > 0) {
+//         addToCart(product);
+//         handlePurchase(product);
+//       } else {
+//         toast.error("This product is out of stock.");
+//       }
+//     } else {
+//       toast.error("You need an account before adding to the cart");
 //     }
 //   };
 
@@ -280,8 +301,18 @@ export default Macs;
 //       </div>
 //       <div className="products-container">
 //         {filteredProducts.map((product) => {
-//           const ratingValue = parseFloat(product.ratings.split('/')[0]);
-//           const totalReviews = product.ratings.match(/\((\d+)\sreviews\)/)[1];
+//           let ratingValue = 0;
+//           let totalReviews = 0;
+//           if (product.ratings) {
+//             const ratingsArray = product.ratings.split('/');
+//             if (ratingsArray.length > 0) {
+//               ratingValue = parseFloat(ratingsArray[0]);
+//               const reviewsMatch = product.ratings.match(/\((\d+)\sreviews\)/);
+//               if (reviewsMatch) {
+//                 totalReviews = reviewsMatch[1];
+//               }
+//             }
+//           }
 //           const starPercentage = (ratingValue / 5) * 100;
 //           const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
 //           return (
@@ -311,7 +342,9 @@ export default Macs;
 //                     <button style={{backgroundColor: "rgb(211, 48, 48)"}} className='updateButton'>Delete</button>
 //                   </div>
 //                 )}
-//                 <button className="add-to-cart" onClick={() => { addToCart(product); handlePurchase(product); }}>Add to Cart</button> {/* Modify the button to call handlePurchase function */}
+//                 {!isAdmin && (
+//                   <button className="add-to-cart" onClick={() => handleAddToCart(product)}>Add to Cart</button>
+//                 )}
 //               </div>
 //             </div>
 //           );
@@ -324,13 +357,15 @@ export default Macs;
 // export default Macs;
 
 
-//first attempt
+
+
 
 // import React, { useState, useEffect, useContext } from 'react';
 // import { CartContext } from '../Cart/CartContext'; // Import the CartContext
 // import '../Other/OtherLaptops.css';
-// import { db } from '../../firebase'; 
-// import { writeBatch, doc, updateDoc, FieldValue } from "firebase/firestore"; // Import FieldValue for updating stock
+// import { db, auth } from '../../firebase'; 
+// import { writeBatch, doc, updateDoc, increment } from "firebase/firestore"; // Import FieldValue for updating stock
+// import { toast } from 'react-toastify'; // Importing toast from react-toastify
 
 // const Macs = () => {
 //   const { addToCart } = useContext(CartContext); // Access the addToCart function from CartContext
@@ -339,45 +374,82 @@ export default Macs;
 //   const [loading, setLoading] = useState(true);
 //   const [error, setError] = useState('');
 //   const [searchTerm, setSearchTerm] = useState('');
+//   const [isAdmin, setIsAdmin] = useState(false); // State to track admin status
 
 //   useEffect(() => {
-//     const fetchProducts = async () => {
-//       setLoading(true);
-//       try {
-//         const response = await fetch('https://nexus2024.onrender.com/api/macs');
-//         if (!response.ok) {
-//           throw new Error('Failed to fetch');
-//         }
-//         const data = await response.json();
-//         setProducts(data);
-//         setFilteredProducts(data);
-
-//         const batch = writeBatch(db);
-//         data.forEach(product => {
-//           const docRef = doc(db, 'macs', product._id); 
-//           batch.set(docRef, product);
-//         });
-//         await batch.commit();
-
-//       } catch (error) {
-//         setError(error.message);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
 //     fetchProducts();
+//     checkAdminStatus();
 //   }, []);
-  
+
+//   const fetchProducts = async () => {
+//     setLoading(true);
+//     try {
+//       const response = await fetch('https://nexus2024.onrender.com/api/macs');
+//       if (!response.ok) {
+//         throw new Error('Failed to fetch');
+//       }
+//       const data = await response.json();
+//       setProducts(data);
+//       setFilteredProducts(data);
+
+//       const batch = writeBatch(db);
+//       data.forEach(product => {
+//         const docRef = doc(db, 'macs', product._id); 
+//         batch.set(docRef, product);
+//       });
+//       await batch.commit();
+
+//     } catch (error) {
+//       setError(error.message);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   const checkAdminStatus = () => {
+//     const user = auth.currentUser;
+//     if (user) {
+//       const adminEmails = [
+//         process.env.REACT_APP_ADMIN_EMAIL_1,
+//         process.env.REACT_APP_ADMIN_EMAIL_2,
+//         // Add more admin email addresses if needed
+//       ];
+//       if (adminEmails.includes(user.email)) {
+//         setIsAdmin(true);
+//       }
+//     }
+//   };
 
 //   const handlePurchase = async (product) => {
 //     try {
 //       const productRef = doc(db, 'macs', product._id);
 //       await updateDoc(productRef, {
-//         stock: FieldValue.increment(-1) // Decrease stock by 1 when purchased
+//         stock: increment(-1) // Decrease stock by 1 when purchased
 //       });
+//       // Update the state to reflect the stock change immediately
+//       setProducts((prevProducts) => 
+//         prevProducts.map((p) => 
+//           p._id === product._id ? { ...p, stock: p.stock - 1 } : p
+//         )
+//       );
+//       //toast.success("Product added to cart successfully!");
 //     } catch (error) {
 //       console.error("Error updating product stock:", error);
+//       toast.error("Failed to update product stock.");
+//     }
+//   };
+
+//   const handleAddToCart = (product) => {
+//     const user = auth.currentUser;
+//     if (user) {
+//       if (product.stock > 0) {
+//         addToCart(product);
+//         handlePurchase(product);
+//       } else {
+//         toast.error("This product is out of stock.");
+//       }
+//     } else {
+//       toast.error("You need an account before adding to the cart");
 //     }
 //   };
 
@@ -409,8 +481,18 @@ export default Macs;
 //       </div>
 //       <div className="products-container">
 //         {filteredProducts.map((product) => {
-//           const ratingValue = parseFloat(product.ratings.split('/')[0]);
-//           const totalReviews = product.ratings.match(/\((\d+)\sreviews\)/)[1];
+//           let ratingValue = 0;
+//           let totalReviews = 0;
+//           if (product.ratings) {
+//             const ratingsArray = product.ratings.split('/');
+//             if (ratingsArray.length > 0) {
+//               ratingValue = parseFloat(ratingsArray[0]);
+//               const reviewsMatch = product.ratings.match(/\((\d+)\sreviews\)/);
+//               if (reviewsMatch) {
+//                 totalReviews = reviewsMatch[1];
+//               }
+//             }
+//           }
 //           const starPercentage = (ratingValue / 5) * 100;
 //           const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
 //           return (
@@ -434,11 +516,13 @@ export default Macs;
 //                   </div>
 //                   <span className='total'>({totalReviews} reviews)</span>
 //                 </div>
-//                 <div className='updateicons'>
-//                   <button className='updateButton'>update</button>
-//                   <button style={{backgroundColor : "rgb(211, 48, 48) "}} className='updateButton'>delete</button>
-//                 </div>
-//                 <button className="add-to-cart" onClick={() => { addToCart(product); handlePurchase(product); }}>Add to Cart</button> {/* Modify the button to call handlePurchase function */}
+//                 {isAdmin && (
+//                   <div className='updateicons'>
+//                     <button className='updateButton'>Update</button>
+//                     <button style={{backgroundColor: "rgb(211, 48, 48)"}} className='updateButton'>Delete</button>
+//                   </div>
+//                 )}
+//                 <button className="add-to-cart" onClick={() => handleAddToCart(product)}>Add to Cart</button>
 //               </div>
 //             </div>
 //           );
@@ -449,3 +533,14 @@ export default Macs;
 // };
 
 // export default Macs;
+
+
+
+
+
+
+
+
+
+
+
