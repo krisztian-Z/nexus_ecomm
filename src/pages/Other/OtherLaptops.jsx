@@ -4,6 +4,7 @@ import './OtherLaptops.css';
 import { db, auth } from '../../firebase'; 
 import { writeBatch, doc, updateDoc, increment } from "firebase/firestore"; // Import FieldValue for updating stock
 import { toast } from 'react-toastify'; // Importing toast from react-toastify
+import Modal from '../../components/Modal'; // Import the Modal component
 
 const OtherLaptops = () => {
   const { addToCart } = useContext(CartContext); // Access the addToCart function from CartContext
@@ -13,6 +14,8 @@ const OtherLaptops = () => {
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [isAdmin, setIsAdmin] = useState(false); // State to track admin status
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     fetchProducts();
@@ -118,6 +121,57 @@ const OtherLaptops = () => {
     }
 };
 
+const handleUpdate = async (updatedProduct) => {
+  try {
+    console.log('Updating product with ID:', updatedProduct._id);
+    console.log('Updated product details:', updatedProduct);
+
+    const response = await fetch(`https://nexus2024.onrender.com/api/update/${updatedProduct._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedProduct),
+    });
+
+    if (!response.ok) {
+      const responseData = await response.json();
+      throw new Error(`Failed to update product: ${response.status} - ${responseData.message}`);
+    }
+
+    const responseData = await response.json();
+    console.log('Update response:', responseData);
+
+    // Update the state to reflect the changes
+    setProducts((prevProducts) =>
+      prevProducts.map((p) =>
+        p._id === updatedProduct._id ? updatedProduct : p
+      )
+    );
+    setFilteredProducts((prevProducts) =>
+      prevProducts.map((p) =>
+        p._id === updatedProduct._id ? updatedProduct : p
+      )
+    );
+    toast.success('Product updated successfully!');
+    setShowModal(false);
+  } catch (error) {
+    console.error('Error updating product:', error);
+    toast.error(`Failed to update product: ${error.message}`);
+  }
+};
+
+const openModal = (product) => {
+  console.log('Opening modal for product:', product);
+  setSelectedProduct(product);
+  setShowModal(true);
+};
+
+const closeModal = () => {
+  setSelectedProduct(null);
+  setShowModal(false);
+};
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -183,7 +237,7 @@ const OtherLaptops = () => {
                 </div>
                 {isAdmin && (
                   <div className='updateicons'>
-                    <button className='updateButton'>Update</button>
+                    <button className='updateButton' onClick={() => openModal(product)}>Update</button>
                     <button
                       style={{ backgroundColor: "rgb(211, 48, 48)" }}
                       className='updateButton'
@@ -201,6 +255,14 @@ const OtherLaptops = () => {
           );
         })}
       </div>
+      {selectedProduct && (
+        <Modal
+          show={showModal}
+          handleClose={closeModal}
+          product={selectedProduct}
+          handleUpdate={handleUpdate}
+        />
+      )}
     </div>
   );
 };
