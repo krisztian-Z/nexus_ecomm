@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useContext } from 'react';
 import { CartContext } from '../Cart/CartContext'; // Import the CartContext
 import '../Other/OtherLaptops.css';
@@ -92,6 +91,33 @@ const Macs = () => {
     }
   };
 
+  const handleDelete = async (productId) => {
+    try {
+        console.log(`Attempting to delete product with ID: ${productId}`);
+        const response = await fetch(`https://nexus2024.onrender.com/api/delete/${productId}`, {
+            method: 'DELETE',
+        });
+
+        const responseData = await response.json(); // Parse the response data
+
+        if (!response.ok) {
+            throw new Error(`Failed to delete product: ${response.status} - ${responseData.message}`);
+        }
+
+        // Update the state to reflect the deletion
+        setProducts((prevProducts) =>
+            prevProducts.filter((product) => product._id !== productId)
+        );
+        setFilteredProducts((prevProducts) =>
+            prevProducts.filter((product) => product._id !== productId)
+        );
+        toast.success("Product deleted successfully!");
+    } catch (error) {
+        console.error("Error deleting product:", error);
+        toast.error(`Failed to delete product: ${error.message}`);
+    }
+};
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -158,7 +184,13 @@ const Macs = () => {
                 {isAdmin && (
                   <div className='updateicons'>
                     <button className='updateButton'>Update</button>
-                    <button style={{backgroundColor: "rgb(211, 48, 48)"}} className='updateButton'>Delete</button>
+                    <button
+                      style={{ backgroundColor: "rgb(211, 48, 48)" }}
+                      className='updateButton'
+                      onClick={() => handleDelete(product._id)}
+                    >
+                      Delete
+                    </button>
                   </div>
                 )}
                 {!isAdmin && (
@@ -174,7 +206,6 @@ const Macs = () => {
 };
 
 export default Macs;
-
 
 
 
