@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { CartContext } from "./Cart/CartContext"; 
 import axios from 'axios';
 import { auth } from "../firebase";
-import { toast } from "react-toastify"; // Importing toast from react-toastify
+import { toast } from "react-toastify";
+import { CustomPrevArrow, CustomNextArrow } from "../components/CustomArrows";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -24,9 +25,14 @@ const Home = () => {
     try {
       const response = await axios.get("https://nexus2024.onrender.com/api/all");
       const data = response.data;
+      console.log("Fetched products:", data); // Log the fetched data
       const highRatedProducts = data
-        .filter((product) => parseFloat(product.ratings.split("/")[0]) >= 4.9)
+        .filter((product) => {
+          const rating = product.ratings ? parseFloat(product.ratings.split("/")[0]) : 0;
+          return rating >= 4.9;
+        })
         .slice(0, 5); // Display up to 5 products
+      console.log("High rated products:", highRatedProducts); // Log the filtered products
       setProducts(highRatedProducts);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -39,7 +45,6 @@ const Home = () => {
       const adminEmails = [
         process.env.REACT_APP_ADMIN_EMAIL_1,
         process.env.REACT_APP_ADMIN_EMAIL_2,
-        // Add more admin email addresses if needed
       ];
       if (adminEmails.includes(user.email)) {
         setIsAdmin(true);
@@ -82,6 +87,8 @@ const Home = () => {
     autoplay: true,
     autoplaySpeed: 3000,
     cssEase: "linear",
+    prevArrow: <CustomPrevArrow />, // Use custom prev arrow
+    nextArrow: <CustomNextArrow /> // Use custom next arrow
   };
 
   return (
@@ -101,16 +108,20 @@ const Home = () => {
       <section className="best-deals">
         <h2>Best Deals</h2>
         <Slider {...settings} className="slider">
-          {products.map((product) => (
-            <div className="deal-card" key={product._id}>
-              <img src={product.image} alt={product.title} />
-              <h3>{product.title}</h3>
-              <p className="ratings">Rating: {product.ratings}</p>
-              <p className="stock">Stock: {product.stock}</p>
-              <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
-              {isAdmin && <button onClick={() => handlePurchase(product)}>Purchase</button>}
-            </div>
-          ))}
+          {products.length > 0 ? (
+            products.map((product) => (
+              <div className="deal-card" key={product._id}>
+                <img src={product.image} alt={product.title} />
+                <h3>{product.title}</h3>
+                <p className="ratings">Rating: {product.ratings}</p>
+                <p className="stock">Stock: {product.stock}</p>
+                <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
+                {isAdmin && <button onClick={() => handlePurchase(product)}>Purchase</button>}
+              </div>
+            ))
+          ) : (
+            <p>No products available</p>
+          )}
         </Slider>
       </section>
     </div>
@@ -118,6 +129,7 @@ const Home = () => {
 };
 
 export default Home;
+
 
 
 
