@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { CartContext } from '../Cart/CartContext'; // Import the CartContext
 import './OtherLaptops.css';
 import { db, auth } from '../../firebase'; 
-import { writeBatch, doc, updateDoc, increment } from "firebase/firestore"; // Import FieldValue for updating stock
+import { writeBatch, doc, updateDoc, increment } from "firebase/firestore"; // Ensure updateDoc and increment are imported
 import { toast } from 'react-toastify'; // Importing toast from react-toastify
 import Modal from '../../components/Modal'; // Import the Modal component
 
@@ -30,11 +30,12 @@ const OtherLaptops = () => {
         throw new Error('Failed to fetch');
       }
       const data = await response.json();
-      setProducts(data);
-      setFilteredProducts(data);
+      const productsWithCategory = data.map(product => ({ ...product, category: 'windows' }));
+      setProducts(productsWithCategory);
+      setFilteredProducts(productsWithCategory);
 
       const batch = writeBatch(db);
-      data.forEach(product => {
+      productsWithCategory.forEach(product => {
         const docRef = doc(db, 'windows', product._id); 
         batch.set(docRef, product);
       });
@@ -123,9 +124,6 @@ const OtherLaptops = () => {
 
 const handleUpdate = async (updatedProduct) => {
   try {
-    console.log('Updating product with ID:', updatedProduct._id);
-    console.log('Updated product details:', updatedProduct);
-
     const response = await fetch(`https://nexus2024.onrender.com/api/update/${updatedProduct._id}`, {
       method: 'PUT',
       headers: {
@@ -135,12 +133,8 @@ const handleUpdate = async (updatedProduct) => {
     });
 
     if (!response.ok) {
-      const responseData = await response.json();
-      throw new Error(`Failed to update product: ${response.status} - ${responseData.message}`);
+      throw new Error('Failed to update product');
     }
-
-    const responseData = await response.json();
-    console.log('Update response:', responseData);
 
     // Update the state to reflect the changes
     setProducts((prevProducts) =>
@@ -157,12 +151,11 @@ const handleUpdate = async (updatedProduct) => {
     setShowModal(false);
   } catch (error) {
     console.error('Error updating product:', error);
-    toast.error(`Failed to update product: ${error.message}`);
+    toast.error('Failed to update product');
   }
 };
 
 const openModal = (product) => {
-  console.log('Opening modal for product:', product);
   setSelectedProduct(product);
   setShowModal(true);
 };
@@ -224,6 +217,7 @@ const closeModal = () => {
                 <p className="description">{product.description}</p>
                 <p className="price">Price: &#8356;{product.price}</p>
                 <p className="stock">Stock: {product.stock}</p>
+                {product.stock === 0 && <span className="out-of-stock-banner">Out of Stock</span>}
                 <div className="rating">
                   <div className="star-ratings-css">
                     <div className="star-ratings-css-top" style={{width: starPercentageRounded}}>
