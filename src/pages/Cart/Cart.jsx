@@ -23,7 +23,6 @@ const Cart = () => {
 
       if (response.status === 200) {
         console.log(`Updated stock for product ID: ${product._id}`);
-        toast.success(`Purchased ${product.title} successfully!`);
       } else {
         console.error(`Failed to purchase ${product.title}:`, response.data);
         toast.error(`Failed to purchase ${product.title}`);
