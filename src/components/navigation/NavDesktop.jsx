@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import NavItem from "./NavItem";
 import styles from "./NavDesktop.module.scss";
 import Profile from "./Profile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-//import { auth } from "../../firebase//"; 
+import { CartContext } from "../../../src/pages/Cart/CartContext"; // Ensure the correct path
 
 const NavDesktop = ({ active, setActive, user, handleLogout }) => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const { totalItems } = useContext(CartContext); // Access totalItems from CartContext
 
   useEffect(() => {
     if (user) {
@@ -63,13 +64,13 @@ const NavDesktop = ({ active, setActive, user, handleLogout }) => {
           </>
         )}
       </div>
-      {/* Conditionally render the Cart link based on isAdmin state */}
       {!isAdmin && (
         <div className={styles.Cart}>
           <NavItem
             variant="Filled"
             to="/cart"
             icon={<FontAwesomeIcon icon={faShoppingCart} size="xs" />}
+            isCart // Pass the isCart prop to show cart item count
           />
         </div>
       )}
@@ -78,5 +79,6 @@ const NavDesktop = ({ active, setActive, user, handleLogout }) => {
 };
 
 export default NavDesktop;
+
 
 
