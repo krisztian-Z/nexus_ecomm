@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavItem from "./NavItem";
 import styles from "./NavDesktop.module.scss";
 import Profile from "./Profile";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+//import { auth } from "../../firebase//"; 
 
 const NavDesktop = ({ active, setActive, user, handleLogout }) => {
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      const adminEmails = [
+        process.env.REACT_APP_ADMIN_EMAIL_1,
+        process.env.REACT_APP_ADMIN_EMAIL_2,
+      ];
+      setIsAdmin(adminEmails.includes(user.email));
+    }
+  }, [user]);
+
   const userId = user?.uid;
+
   return (
     <div className={styles.Container}>
       <div className={styles.NavItems}>
@@ -49,16 +63,20 @@ const NavDesktop = ({ active, setActive, user, handleLogout }) => {
           </>
         )}
       </div>
-      <div className={styles.Cart}>
-        <NavItem
-          
-          variant="Filled"
-          to="/cart"
-          icon={<FontAwesomeIcon icon={faShoppingCart} size="xs" />}
-        />
-      </div>
+      {/* Conditionally render the Cart link based on isAdmin state */}
+      {!isAdmin && (
+        <div className={styles.Cart}>
+          <NavItem
+            variant="Filled"
+            to="/cart"
+            icon={<FontAwesomeIcon icon={faShoppingCart} size="xs" />}
+          />
+        </div>
+      )}
     </div>
   );
 };
 
 export default NavDesktop;
+
+

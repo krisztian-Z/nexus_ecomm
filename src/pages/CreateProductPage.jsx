@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './CreateProductPage.css';  
+import './CreateProductPage.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -10,7 +10,8 @@ const CreateProductPage = () => {
   const [productDescription, setProductDescription] = useState('');
   const [productStock, setProductStock] = useState('');
   const [productImageUrl, setProductImageUrl] = useState('');
-  const [productCategory, setProductCategory] = useState('macs'); // Default category
+  const [productCategory, setProductCategory] = useState('macs'); 
+  const [isFormVisible, setIsFormVisible] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +21,7 @@ const CreateProductPage = () => {
       description: productDescription,
       stock: productStock,
       image: productImageUrl,
-      category: productCategory  // Include category in product data
+      category: productCategory  
     };
 
     const apiUrl = 'https://nexus2024.onrender.com/api/add';
@@ -55,9 +56,20 @@ const CreateProductPage = () => {
     }
   };
 
+  const handleCloseForm = () => {
+    setIsFormVisible(false);
+  };
+
+  if (!isFormVisible) {
+    return null;
+  }
+
   return (
     <div className="create-product-container">
-      <h2>Create a New Product</h2>
+      <div className="form-header">
+        <h2>Create a New Product</h2>
+        <button className="close-button" onClick={handleCloseForm}>×</button>
+      </div>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Product Category:</label>
