@@ -1,27 +1,38 @@
 .create-product-container {
   max-width: 600px;
   margin: 50px auto;
-  padding: 20px;
+  padding: 30px;
+  padding-top: 50px; 
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  position: relative;
 }
 
 .form-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .close-button {
-  background-color: transparent;
+  position: absolute; 
+  top: -50px;
+  right: -30px; 
+  background-color: transparent !important; 
   border: none;
-  font-size: 1.5rem;
+  font-size: 1rem; 
+  padding: 0.1rem;
   cursor: pointer;
 }
 
-.close-button:hover {
-  color: red;
+.close-icon {
+  color: black; 
+}
+
+.close-button:hover .close-icon {
+  color: red; 
 }
 
 .create-product-container h2 {
@@ -80,6 +91,3 @@
 .create-product-container button:hover {
   background-color: #272829;
 }
-
-
-
