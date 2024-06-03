@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './CreateProductPage.css';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,7 +14,7 @@ const CreateProductPage = () => {
   const [productStock, setProductStock] = useState('');
   const [productImageUrl, setProductImageUrl] = useState('');
   const [productCategory, setProductCategory] = useState('macs'); 
-  const [isFormVisible, setIsFormVisible] = useState(true);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -57,18 +60,16 @@ const CreateProductPage = () => {
   };
 
   const handleCloseForm = () => {
-    setIsFormVisible(false);
+    navigate('/');
   };
-
-  if (!isFormVisible) {
-    return null;
-  }
 
   return (
     <div className="create-product-container">
       <div className="form-header">
         <h2>Create a New Product</h2>
-        <button className="close-button" onClick={handleCloseForm}>×</button>
+        <button className="close-button" onClick={handleCloseForm}>
+          <FontAwesomeIcon icon={faTimes} className="close-icon" />
+        </button>
       </div>
       <form onSubmit={handleSubmit}>
         <div>
@@ -129,8 +130,3 @@ const CreateProductPage = () => {
 };
 
 export default CreateProductPage;
-
-
-
-
-
