@@ -1,10 +1,15 @@
-import React, { createContext, useState } from 'react';
+// CartContext.js
+import React, { createContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    console.log('Cart items updated:', cartItems);
+  }, [cartItems]);
 
   const addToCart = (product) => {
     if (product.stock > 0) {
@@ -58,8 +63,10 @@ export const CartProvider = ({ children }) => {
     );
   };
 
+  const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart, increaseQuantity, decreaseQuantity, setCartItems }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart, increaseQuantity, decreaseQuantity, setCartItems, totalItems }}>
       {children}
     </CartContext.Provider>
   );
