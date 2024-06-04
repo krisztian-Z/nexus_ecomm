@@ -45,6 +45,9 @@
       "react-app",
       "react-app/jest"
     ]
+  }, "engines": {
+    "node": "20.12.2",
+    "bun": "1.1.0"
   },
   "browserslist": {
     "production": [
