@@ -20,8 +20,6 @@ const NavDesktop = ({ active, setActive, user, handleLogout }) => {
     }
   }, [user]);
 
-  const userId = user?.uid;
-
   return (
     <div className={styles.Container}>
       <div className={styles.NavItems}>
@@ -43,7 +41,7 @@ const NavDesktop = ({ active, setActive, user, handleLogout }) => {
           to="/about"
           onClick={() => setActive("about")}
         />
-        {userId ? (
+        {user ? (
           <>
             <Profile user={user} />
             <NavItem
@@ -54,14 +52,12 @@ const NavDesktop = ({ active, setActive, user, handleLogout }) => {
             />
           </>
         ) : (
-          <>
-            <NavItem
-              title="Login"
-              variant="Filled"
-              to="/auth"
-              onClick={() => setActive("login")}
-            />
-          </>
+          <NavItem
+            title="Login"
+            variant="Filled"
+            to="/auth"
+            onClick={() => setActive("login")}
+          />
         )}
       </div>
       {!isAdmin && (
@@ -72,6 +68,7 @@ const NavDesktop = ({ active, setActive, user, handleLogout }) => {
             icon={<FontAwesomeIcon icon={faShoppingCart} size="xs" />}
             isCart // Pass the isCart prop to show cart item count
           />
+          <span className={styles.CartCount}>{totalItems}</span> {/* Display total items in cart */}
         </div>
       )}
     </div>
@@ -79,6 +76,3 @@ const NavDesktop = ({ active, setActive, user, handleLogout }) => {
 };
 
 export default NavDesktop;
-
-
-
